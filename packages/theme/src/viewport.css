@@ -1,0 +1,290 @@
+/* The desktop is a fixed canvas; only the mounted applications scroll. */
+@layer utilities {
+  :root:has([data-mode]),
+  :root:has([data-mode]) body {
+    height: 100dvh;
+    overflow: clip;
+    overscroll-behavior: none;
+  }
+  [data-desktop-home] {
+    container-type: size;
+  }
+  [data-home-center] {
+    height: 100%;
+    padding-top: 0;
+  }
+  [data-home-center] [data-home-clock] > div {
+    font-size: clamp(32px, 21cqh, 112px);
+    line-height: 1.1;
+  }
+  [data-home-center] [data-home-search] {
+    margin-top: clamp(6px, 5cqh, 32px);
+  }
+  @media (max-height: 600px) {
+    [data-desktop-home] {
+      padding-top: max(8px, env(safe-area-inset-top));
+      padding-bottom: 86px;
+    }
+    [data-home-center] [data-home-search] {
+      padding-block: 8px;
+    }
+    [data-home-center] [data-home-clock] > p {
+      font-size: 12px;
+    }
+  }
+}
+
+/* The desktop selects an unobstructed hardware segment without remounting apps. */
+@layer utilities {
+  :root[data-segmented] [data-desktop-home],
+  :root[data-segmented] [data-welcome] {
+    position: absolute;
+    left: var(--segment-left);
+    right: auto;
+    margin-inline: 0;
+    top: var(--segment-top);
+    width: var(--segment-width);
+    height: var(--segment-height);
+    min-height: 0;
+    max-width: none;
+    overflow: clip;
+    padding: 24px 20px 100px;
+  }
+  :root[data-segmented] [data-home-center] {
+    padding-top: 0;
+  }
+  :root[data-segmented] [data-window] {
+    left: calc(var(--segment-left) + 12px);
+    top: calc(var(--segment-top) + 12px);
+    width: calc(var(--segment-width) - 24px);
+    height: min(
+      calc(var(--segment-height) - 24px),
+      calc(var(--visual-height, 100dvh) - var(--segment-top) - 24px)
+    );
+    border-radius: var(--system-radius-panel);
+  }
+  :root[data-segmented] nav[aria-label="应用程序"] {
+    left: calc(var(--segment-left) + var(--segment-width) / 2);
+    top: calc(var(--segment-top) + var(--segment-height) - 88px);
+    bottom: auto;
+    max-width: calc(var(--segment-width) - 24px);
+    gap: 8px;
+    padding-inline: 10px;
+  }
+}
+
+@layer utilities {
+  @media (max-height: 400px) {
+    [data-home-center] [data-home-search] {
+      margin-top: 6px;
+    }
+  }
+}
+
+@layer utilities {
+  [data-home-widgets] {
+    height: min(96px, 28cqh);
+  }
+  [data-widget-page] > * {
+    height: 100%;
+    min-height: 0;
+  }
+  @container (max-width: 600px) or (max-height: 500px) {
+    [data-home-center] {
+      display: grid;
+      grid-template-rows: auto auto auto auto;
+      align-content: start;
+    }
+    [data-home-center] [data-home-clock] > div {
+      font-size: clamp(28px, 15cqh, 64px);
+    }
+    [data-home-center] [data-home-search] {
+      margin-top: 6px;
+      width: 100%;
+    }
+    [data-home-widgets] {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 8px;
+      height: 96px;
+      max-width: 340px;
+      align-self: start;
+    }
+  }
+}
+@layer utilities {
+  @media (max-height: 400px) {
+    [data-home-center] [data-home-clock] > div {
+      font-size: 32px;
+    }
+  }
+  @media (max-height: 380px) {
+    [data-home-center] [data-home-clock] {
+      display: none;
+    }
+    [data-home-center] {
+      grid-template-rows: auto auto auto;
+    }
+  }
+}
+
+@layer utilities {
+  @media (min-width: 640px) and (pointer: coarse) {
+    :root[data-foldable]:not([data-segmented]) [data-dock] > span:first-child {
+      width: min(51px, calc((100dvh - 180px) / 7));
+      height: min(51px, calc((100dvh - 180px) / 7));
+    }
+  }
+}
+
+/* Wide canvases keep functional widgets beside the central clock and search. */
+@layer utilities {
+  @container (min-width: 1060px) {
+    [data-home-center] {
+      position: relative;
+    }
+    [data-home-clock],
+    [data-home-shortcuts],
+    [data-home-search] {
+      width: calc(100% - 552px);
+      margin-inline: auto;
+    }
+    [data-home-widgets] {
+      position: absolute;
+      inset: -12px 0 auto auto;
+      width: 260px;
+      max-width: 100%;
+      height: 96px;
+      margin: 0;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: 96px;
+    }
+    [data-widget-page] {
+      pointer-events: auto;
+    }
+    [data-widget-page="music"] {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+}
+
+/* Short desktop windows retain the side widget and leave space above the Dock. */
+@layer utilities {
+  @container (max-height: 500px) {
+    [data-desktop-home]:not([data-home-touch="true"]) [data-home-shortcuts] {
+      margin-top: 18px;
+    }
+    [data-desktop-home]:not([data-home-touch="true"])
+      [data-home-shortcuts]
+      > div {
+      row-gap: 12px;
+    }
+  }
+}
+
+@layer utilities {
+  @media (max-height: 450px) {
+    [data-home-shortcuts] {
+      margin-top: 6px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 4px;
+    }
+    [data-home-shortcuts] a > span:first-child {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  @media (max-height: 450px) {
+    [data-home-center] [data-home-clock] {
+      display: none;
+    }
+  }
+}
+
+@layer utilities {
+  @media (max-height: 450px) {
+    [data-home-shortcuts] a > span:last-child {
+      display: none;
+    }
+    [data-home-shortcuts] a > span:first-child {
+      padding: 0;
+    }
+  }
+}
+
+@layer utilities {
+  @media (max-height: 380px) {
+    [data-home-widgets] {
+      height: 96px;
+    }
+  }
+}
+
+/* Touch devices share a pair of widgets above search and the website grid. */
+@layer utilities {
+  :root [data-home-touch="true"] [data-home-center] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 112px auto auto;
+    align-content: start;
+    gap: 16px;
+    max-width: 680px;
+    margin-inline: auto;
+  }
+  :root [data-home-touch="true"] [data-home-clock] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    text-shadow: none;
+  }
+  :root [data-home-touch="true"] [data-home-clock] > p {
+    font-size: 11px;
+  }
+  :root [data-home-touch="true"] [data-home-clock] > div {
+    font-size: 36px;
+    letter-spacing: -1px;
+  }
+  :root [data-home-touch="true"] [data-home-widgets] {
+    position: static;
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    max-width: none;
+    height: 112px;
+    grid-template-rows: 112px;
+    margin: 0;
+  }
+  :root [data-home-touch="true"] [data-home-search] {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  :root [data-home-touch="true"] [data-home-shortcuts] {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    width: 100%;
+    margin: 0 auto;
+  }
+  @media (max-height: 450px) {
+    :root [data-home-touch="true"] [data-home-center] {
+      grid-template-rows: 80px auto auto;
+      gap: 8px;
+    }
+    :root [data-home-touch="true"] [data-home-widgets] {
+      height: 80px;
+      grid-template-rows: 80px;
+    }
+    :root [data-home-touch="true"] [data-home-shortcuts] > div {
+      row-gap: 6px;
+    }
+    :root [data-home-touch="true"] [data-home-shortcuts] a > span:first-child {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

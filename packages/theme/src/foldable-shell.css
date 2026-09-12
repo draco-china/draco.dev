@@ -1,0 +1,21 @@
+/* Continuous foldable canvases keep primary controls close to the outer edge. */
+@layer utilities {
+  @media (min-width: 640px) and (pointer: coarse) {
+    :root[data-foldable]:not([data-segmented]) nav[aria-label="应用程序"] {
+      left: auto;
+      right: max(12px, env(safe-area-inset-right));
+      top: 50%;
+      bottom: auto;
+      translate: none;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px 10px 6px;
+      max-height: calc(100dvh - 32px);
+      max-width: none;
+    }
+    :root[data-foldable]:not([data-segmented]) [data-desktop-home] {
+      padding-right: max(100px, calc(env(safe-area-inset-right) + 88px));
+    }
+  }
+}

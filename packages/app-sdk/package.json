@@ -1,0 +1,15 @@
+{
+  "name": "@workspace/app-sdk",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./standalone": "./src/standalone.tsx",
+    "./appearance": "./src/appearance.ts",
+    "./embedded": "./src/embedded.tsx"
+  },
+  "peerDependencies": {
+    "@qwik.dev/core": "2.0.0-beta.43"
+  }
+}

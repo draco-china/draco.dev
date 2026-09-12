@@ -1,0 +1,45 @@
+{
+  "system": "macOS 26.6.2 (25G83)",
+  "assets": [
+    {
+      "file": "safari.webp",
+      "source": "/Applications/Safari.app/Contents/Resources/AppIcon.icns",
+      "version": "26.6.2"
+    },
+    {
+      "file": "music.webp",
+      "source": "/System/Applications/Music.app/Contents/Resources/AppIcon.icns",
+      "version": "1.6.6"
+    },
+    {
+      "file": "settings.webp",
+      "source": "/System/Applications/System Settings.app/Contents/Resources/SystemSettings.icns",
+      "version": "15.0"
+    },
+    {
+      "file": "code.webp",
+      "source": "/Applications/Visual Studio Code.app/Contents/Resources/Code.icns",
+      "version": "1.122.1"
+    },
+    {
+      "file": "about.webp",
+      "source": "/System/Applications/Contacts.app/Contents/Resources/Contacts.icns",
+      "version": "14.0"
+    },
+    {
+      "file": "navigation.webp",
+      "source": "/System/Applications/Apps.app/Contents/Resources/AppIcon.icns",
+      "version": "1.0"
+    },
+    {
+      "file": "tools.webp",
+      "source": "/System/Applications/Automator.app/Contents/Resources/AppIcon.icns",
+      "version": "2.10"
+    },
+    {
+      "file": "home.webp",
+      "source": "/System/Applications/Home.app/Contents/Resources/AppIcon.icns",
+      "version": "10.0"
+    }
+  ]
+}

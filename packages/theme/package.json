@@ -1,0 +1,12 @@
+{
+  "name": "@workspace/theme",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.css"
+    }
+  }
+}

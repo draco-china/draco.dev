@@ -1,0 +1,72 @@
+{
+  "name": "workspace",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun scripts/dev.ts",
+    "build": "bun run --filter \"@workspace/desktop\" --filter \"@workspace/about\" --filter \"@workspace/music\" --filter \"@workspace/navigation\" build",
+    "typecheck": "tsc --noEmit",
+    "check": "biome check .",
+    "format": "biome check --write .",
+    "test": "vitest run",
+    "preview": "bun run build:desktop && bun run build:navigation && bun run navigation:migrate:local && wrangler dev --config wrangler.jsonc --config apps/navigation/wrangler.jsonc --port 4270 --persist-to apps/navigation/.wrangler/state",
+    "validate": "bun run check && bun run typecheck && bun run typecheck:worker && bun run test && bun run build && bun run test:production && bun run build:worker",
+    "test:unit": "vitest run --project unit",
+    "test:browser": "vitest run --project browser",
+    "test:watch": "vitest",
+    "build:apps": "bun run --filter \"@workspace/about\" --filter \"@workspace/music\" --filter \"@workspace/navigation\" build",
+    "build:desktop": "bun run --filter @workspace/desktop build",
+    "music:import": "bun scripts/import-music.ts --web",
+    "dev:desktop": "bun run --filter @workspace/desktop dev",
+    "navigation:dev": "wrangler dev --config apps/navigation/wrangler.jsonc --port 8787 --test-scheduled --ip 127.0.0.1 --persist-to apps/navigation/.wrangler/state",
+    "navigation:migrate:local": "wrangler d1 migrations apply DB --local --persist-to apps/navigation/.wrangler/state --config apps/navigation/wrangler.jsonc",
+    "navigation:sync:local": "curl --fail http://127.0.0.1:8787/__scheduled",
+    "build:worker": "wrangler deploy --config apps/navigation/wrangler.jsonc --dry-run && wrangler deploy --dry-run",
+    "typecheck:worker": "tsc -p apps/navigation/tsconfig.worker.json --noEmit",
+    "deploy": "bun run build:desktop && bun run build:navigation && bun run deploy:worker",
+    "navigation:types": "wrangler types apps/navigation/worker-configuration.d.ts --config apps/navigation/wrangler.jsonc",
+    "test:production": "vitest run --config vitest.production.config.ts",
+    "navigation:migrate:remote": "wrangler d1 migrations apply DB --remote --config apps/navigation/wrangler.jsonc",
+    "deploy:worker": "bun scripts/deploy.ts",
+    "build:navigation": "bun run --filter @workspace/navigation build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.13",
+    "@workspace/about": "workspace:*",
+    "@workspace/app-sdk": "workspace:*",
+    "@workspace/music": "workspace:*",
+    "@workspace/navigation": "workspace:*",
+    "@workspace/theme": "workspace:*",
+    "@workspace/ui": "workspace:*",
+    "@qwik.dev/core": "2.0.0-beta.43",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/bun": "1.4.2",
+    "@types/node": "22.20.2",
+    "@vitest/browser-playwright": "5.0.0",
+    "music-metadata": "11.15.0",
+    "playwright": "1.63.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2",
+    "vite": "8.3.0",
+    "vitest": "5.0.0",
+    "wrangler": "4.131.1"
+  },
+  "packageManager": "bun@1.3.14",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "cloudflare": {
+    "label": "draco.dev",
+    "products": [
+      "Workers",
+      "D1"
+    ],
+    "publish": false,
+    "bindings": {
+      "NAVIGATION": {
+        "description": "Internal navigation Worker backed by D1; root deploy provisions and migrates its database before deploying both Workers."
+      }
+    }
+  }
+}

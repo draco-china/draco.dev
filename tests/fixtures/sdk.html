@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>SDK peer</title></head><body><output id="state"></output><button id="navigate">Navigate</button><button id="title">Title</button><button id="open">Open</button><script>
+const query = new URL(location.href).searchParams;
+const origin = query.get('hostOrigin');
+const appId = query.get('appId');
+const state = {};
+const send = payload => parent.postMessage({protocol:'draco.app',version:1,appId,...payload}, origin);
+window.addEventListener('message', event => {
+ if(event.source !== parent || event.origin !== origin) return;
+ const message = event.data;
+ if(message.protocol !== 'draco.app' || message.appId !== appId) return;
+ if(message.type==='appearance') state.appearance=message.value;
+ if(message.type==='visibility') state.visible=message.visible;
+ if(message.type==='path') state.path=message.path;
+ document.getElementById('state').textContent=JSON.stringify(state);
+});
+document.getElementById('navigate').onclick=()=>send({type:'path',path:'/album/42'});
+document.getElementById('title').onclick=()=>send({type:'title',title:'Album 42'});
+document.getElementById('open').onclick=()=>send({type:'open-url',url:'https://example.com/song'});
+if(origin) send({type:'ready'});
+</script></body></html>

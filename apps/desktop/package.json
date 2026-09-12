@@ -1,0 +1,28 @@
+{
+  "name": "@workspace/desktop",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "qwik build",
+    "preview": "vite preview --host 127.0.0.1",
+    "build.client": "vite build",
+    "build.server": "vite build --config adapters/cloudflare/vite.config.ts"
+  },
+  "dependencies": {
+    "@workspace/ui": "workspace:*",
+    "@workspace/theme": "workspace:*",
+    "@workspace/app-sdk": "workspace:*",
+    "@workspace/about": "workspace:*",
+    "@workspace/music": "workspace:*",
+    "@workspace/navigation": "workspace:*",
+    "cn": "0.2.6",
+    "class-variance-authority": "0.7.1",
+    "zod": "4.6.2",
+    "@qwik.dev/router": "2.0.0-beta.43"
+  },
+  "peerDependencies": {
+    "@qwik.dev/core": "2.0.0-beta.43"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.13/schema.json",
+  "files": {
+    "includes": [
+      "**",
+      "!node_modules",
+      "!dist",
+      "!bun.lock",
+      "!tmp",
+      "!**/dist",
+      "!**/node_modules",
+      "!.vitest",
+      "!**/.wrangler",
+      "!.local-retired",
+      "!**/worker-configuration.d.ts",
+      "!apps/desktop/server",
+      "!apps/navigation/server"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "a11y": {
+        "useButtonType": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
+      }
+    },
+    "domains": {
+      "qwik": "none",
+      "react": "none"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/**/*.tsx", "apps/**/*.tsx", "packages/**/*.tsx"],
+      "linter": {
+        "domains": {
+          "qwik": "recommended"
+        },
+        "rules": {
+          "correctness": {
+            "useQwikMethodUsage": "error",
+            "useQwikValidLexicalScope": "error",
+            "useQwikClasslist": "off",
+            "noQwikUseVisibleTask": "off"
+          }
+        }
+      }
+    }
+  ]
+}

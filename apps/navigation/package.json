@@ -1,0 +1,37 @@
+{
+  "name": "@workspace/navigation",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/app.tsx",
+    "./model": "./src/model.ts",
+    "./library": "./src/library.ts",
+    "./featured": "./src/featured.ts"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "qwik build",
+    "preview": "vite preview --host 127.0.0.1",
+    "dev:worker": "bun run --cwd ../.. navigation:dev",
+    "build:worker": "bun run --cwd ../.. build:worker",
+    "typecheck:worker": "tsc -p tsconfig.worker.json --noEmit",
+    "types:worker": "bun run --cwd ../.. navigation:types",
+    "migrate:local": "bun run --cwd ../.. navigation:migrate:local",
+    "build.client": "vite build",
+    "build.server": "vite build --config adapters/cloudflare/vite.config.ts"
+  },
+  "peerDependencies": {
+    "@qwik.dev/core": "2.0.0-beta.43"
+  },
+  "dependencies": {
+    "@workspace/ui": "workspace:*",
+    "@workspace/theme": "workspace:*",
+    "@workspace/app-sdk": "workspace:*",
+    "cn": "0.2.6",
+    "@qwik.dev/router": "2.0.0-beta.43"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20260911.1"
+  }
+}
