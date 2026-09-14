@@ -15,6 +15,11 @@ export default component$(() => (
   <QwikRouterProvider>
     <head>
       <meta charSet="utf-8" />
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5460344617499424"
+        crossOrigin="anonymous"
+      ></script>
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
