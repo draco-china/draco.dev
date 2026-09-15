@@ -1,25 +1,25 @@
 {
-  "system": "macOS 26.6.2 (25G83)",
+  "system": "macOS 27.0 (26A428)",
   "assets": [
     {
       "file": "safari.webp",
-      "source": "/Applications/Safari.app/Contents/Resources/AppIcon.icns",
-      "version": "26.6.2"
+      "source": "/Applications/Safari.app/Contents/Resources/AppIconUpdated.icns",
+      "version": "27.0"
     },
     {
       "file": "music.webp",
       "source": "/System/Applications/Music.app/Contents/Resources/AppIcon.icns",
-      "version": "1.6.6"
+      "version": "1.7"
     },
     {
       "file": "settings.webp",
-      "source": "/System/Applications/System Settings.app/Contents/Resources/SystemSettings.icns",
-      "version": "15.0"
+      "source": "/System/Applications/System Settings.app/Contents/Resources/Settings.icns",
+      "version": "1.0"
     },
     {
       "file": "code.webp",
       "source": "/Applications/Visual Studio Code.app/Contents/Resources/Code.icns",
-      "version": "1.122.1"
+      "version": "1.137.0"
     },
     {
       "file": "about.webp",
@@ -39,7 +39,13 @@
     {
       "file": "home.webp",
       "source": "/System/Applications/Home.app/Contents/Resources/AppIcon.icns",
-      "version": "10.0"
+      "version": "11.0"
     }
-  ]
+  ],
+  "export": {
+    "size": 192,
+    "format": "WebP",
+    "quality": 85,
+    "alphaQuality": 100
+  }
 }
