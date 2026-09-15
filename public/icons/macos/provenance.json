@@ -38,8 +38,8 @@
     },
     {
       "file": "home.webp",
-      "source": "/System/Applications/Home.app/Contents/Resources/AppIcon.icns",
-      "version": "11.0"
+      "source": "/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns",
+      "version": "27.0"
     }
   ],
   "export": {
